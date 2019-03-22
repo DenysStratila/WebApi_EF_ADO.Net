@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
@@ -26,11 +24,9 @@ namespace BLL.Services
 
             MapperConfiguration config = new MapperConfiguration(con =>
             {
-                con.CreateMap<Product, ProductDTO>();
-                con.CreateMap<Supplier, SupplierDTO>();
                 con.CreateMap<CategoryProduct, CategoryProductDTO>();
-            }
-            );
+                con.CreateMap<ProductDTO, Product>();
+            });
 
             mapper = config.CreateMapper();
         }
@@ -44,6 +40,7 @@ namespace BLL.Services
             {
                 Product newProduct = mapper.Map<Product>(product);
                 unitOfWork.Products.Insert(newProduct);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -57,6 +54,7 @@ namespace BLL.Services
             {
                 Product newProduct = mapper.Map<Product>(product);
                 unitOfWork.Products.Update(newProduct);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -69,6 +67,7 @@ namespace BLL.Services
             try
             {
                 unitOfWork.Products.Delete(productId);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Data.Entity;
 using DAL_EF.Interfaces;
 using DAL_EF.Entities;
 
@@ -20,12 +19,15 @@ namespace DAL_EF.Repositories
         public void Insert(Product product)
         {
             context.Products.Add(product);
-            context.SaveChanges();
         }
 
         public void Update(Product product)
         {
-            context.Entry(product).State = EntityState.Modified;
+            Product _product = FindWithId(product.Id);
+            if (_product != null)
+                context.Entry(_product).CurrentValues.SetValues(product);
+            // Does not work if we are using Lazy Load.
+            // context.Entry(product).State = EntityState.Modified;
         }
 
         public void Delete(int id)
@@ -33,8 +35,6 @@ namespace DAL_EF.Repositories
             Product _product = context.Products.Find(id);
             if (_product != null)
                 context.Products.Remove(_product);
-
-            context.SaveChanges();
         }
 
         public IEnumerable<Product> FindAll()
@@ -49,7 +49,7 @@ namespace DAL_EF.Repositories
 
         public Product FindWithId(int id)
         {
-            return context.Products.Find(id);
+            return context.Products.SingleOrDefault(d => d.Id == id);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace WebApi.Infrastructure
     {
         public override void Load()
         {
-            Bind<ICategoryService>().To<CategoryService>();
-            Bind<IProductService>().To<ProductService>();
-            Bind<ISupplierService>().To<SupplierService>();
+            //Bind<ICategoryService>().To<CategoryService>();
+            //Bind<IProductService>().To<ProductService>();
+            //Bind<ISupplierService>().To<SupplierService>();
         }
     }
 }
