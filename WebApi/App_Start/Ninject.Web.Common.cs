@@ -14,7 +14,6 @@ namespace WebApi.App_Start
     using Ninject.Web.WebApi;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using BLL.Infrastructure;
-    using WebApi.Infrastructure;
 
     public static class NinjectWebCommon 
     {
@@ -34,9 +33,8 @@ namespace WebApi.App_Start
 
         private static IKernel CreateKernel()
         {
-            NinjectModule networkModule = new NetworkModule();
             NinjectModule serviceModule = new ServiceModule("DbConnection");
-            var kernel = new StandardKernel(networkModule, serviceModule);
+            var kernel = new StandardKernel(serviceModule);
             kernel.Unbind<ModelValidatorProvider>();
             GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
             return kernel;

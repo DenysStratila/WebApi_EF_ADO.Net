@@ -4,10 +4,10 @@ using BLL.Models;
 using BLL.Interfaces;
 using BLL.Infrastructure;
 using AutoMapper;
-//using DAL_Adonet.Entities;
-//using DAL_Adonet.Interfaces;
-using DAL_EF.Interfaces;
-using DAL_EF.Entities;
+using DAL_Adonet.Entities;
+using DAL_Adonet.Interfaces;
+//using DAL_EF.Interfaces;
+//using DAL_EF.Entities;
 
 namespace BLL.Services
 {
@@ -23,9 +23,11 @@ namespace BLL.Services
 
             MapperConfiguration config = new MapperConfiguration(con =>
             {
-                con.CreateMap<Product, ProductDTO>();
-                con.CreateMap<Supplier, SupplierDTO>();
+                con.CreateMap<CategoryProductDTO, CategoryProduct>();
                 con.CreateMap<CategoryProduct, CategoryProductDTO>();
+
+                con.CreateMap<ProductDTO, Product>();
+                con.CreateMap<Product, ProductDTO>();
             }
             );
 
@@ -41,6 +43,7 @@ namespace BLL.Services
             {
                 CategoryProduct newCategoryProduct = mapper.Map<CategoryProduct>(categoryProduct);
                 unitOfWork.CategoriesProducts.Insert(newCategoryProduct);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -54,6 +57,7 @@ namespace BLL.Services
             {
                 CategoryProduct newCategoryProduct = mapper.Map<CategoryProduct>(categoryProduct);
                 unitOfWork.CategoriesProducts.Update(newCategoryProduct);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -66,6 +70,7 @@ namespace BLL.Services
             try
             {
                 unitOfWork.CategoriesProducts.Delete(categoryProductId);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {

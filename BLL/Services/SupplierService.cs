@@ -1,16 +1,14 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using BLL.Models;
 using BLL.Interfaces;
 using BLL.Infrastructure;
-//using DAL_Adonet.Entities;
-//using DAL_Adonet.Interfaces;
-using DAL_EF.Interfaces;
-using DAL_EF.Entities;
+using DAL_Adonet.Entities;
+using DAL_Adonet.Interfaces;
+//using DAL_EF.Interfaces;
+//using DAL_EF.Entities;
 
 namespace BLL.Services
 {
@@ -26,9 +24,11 @@ namespace BLL.Services
 
             MapperConfiguration config = new MapperConfiguration(con =>
             {
-                con.CreateMap<Product, ProductDTO>();
+                con.CreateMap<SupplierDTO, Supplier>();
                 con.CreateMap<Supplier, SupplierDTO>();
-                con.CreateMap<CategoryProduct, CategoryProductDTO>();
+
+                con.CreateMap<ProductDTO, Product>();
+                con.CreateMap<Product, ProductDTO>();
             }
             );
 
@@ -44,6 +44,7 @@ namespace BLL.Services
             {
                 Supplier newSupplier = mapper.Map<Supplier>(supplier);
                 unitOfWork.Suppliers.Insert(newSupplier);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -57,6 +58,7 @@ namespace BLL.Services
             {
                 Supplier newSupplier = mapper.Map<Supplier>(supplier);
                 unitOfWork.Suppliers.Update(newSupplier);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {
@@ -69,6 +71,7 @@ namespace BLL.Services
             try
             {
                 unitOfWork.Suppliers.Delete(supplierId);
+                unitOfWork.Save();
             }
             catch (Exception ex)
             {

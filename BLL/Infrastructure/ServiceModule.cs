@@ -1,10 +1,10 @@
 ﻿using Ninject.Modules;
 using BLL.Interfaces;
 using BLL.Services;
-//using DAL_Adonet.Interfaces;
-//using DAL_Adonet.TableDataGateway;
-using DAL_EF.Interfaces;
-using DAL_EF.Repositories;
+using DAL_Adonet.Interfaces;
+using DAL_Adonet.TableDataGateway;
+//using DAL_EF.Interfaces;
+//using DAL_EF.Repositories;
 
 namespace BLL.Infrastructure
 {

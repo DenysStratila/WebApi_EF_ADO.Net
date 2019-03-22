@@ -90,6 +90,10 @@
     <Compile Include="Services\SupplierService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL_Adonet\DAL_Adonet.csproj">
+      <Project>{05bb6ebd-d1aa-4e42-a08d-9717ac215c75}</Project>
+      <Name>DAL_Adonet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL_EF\DAL_EF.csproj">
       <Project>{ec47dee2-c467-4099-990a-6f4d8b6be91c}</Project>
       <Name>DAL_EF</Name>
@@ -98,6 +102,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

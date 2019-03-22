@@ -5,10 +5,10 @@ using AutoMapper;
 using BLL.Models;
 using BLL.Interfaces;
 using BLL.Infrastructure;
-//using DAL_Adonet.Entities;
-//using DAL_Adonet.Interfaces;
-using DAL_EF.Interfaces;
-using DAL_EF.Entities;
+using DAL_Adonet.Entities;
+using DAL_Adonet.Interfaces;
+//using DAL_EF.Interfaces;
+//using DAL_EF.Entities;
 
 namespace BLL.Services
 {
@@ -24,7 +24,7 @@ namespace BLL.Services
 
             MapperConfiguration config = new MapperConfiguration(con =>
             {
-                con.CreateMap<CategoryProduct, CategoryProductDTO>();
+                con.CreateMap<Product, ProductDTO>();
                 con.CreateMap<ProductDTO, Product>();
             });
 

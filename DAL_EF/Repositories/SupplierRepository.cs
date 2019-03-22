@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Data.Entity;
 using DAL_EF.Interfaces;
 using DAL_EF.Entities;
 
@@ -20,12 +19,15 @@ namespace DAL_EF.Repositories
         public void Insert(Supplier supplier)
         {
             context.Suppliers.Add(supplier);
-            context.SaveChanges();
         }
 
         public void Update(Supplier supplier)
         {
-            context.Entry(supplier).State = EntityState.Modified;
+            Supplier _supplier = FindWithId(supplier.Id);
+            if (_supplier != null)
+                context.Entry(_supplier).CurrentValues.SetValues(supplier);
+            // Does not work if we are using Lazy Load.
+            // context.Entry(supplier).State = EntityState.Modified;
         }
 
         public void Delete(int id)
@@ -33,8 +35,6 @@ namespace DAL_EF.Repositories
             Supplier _supplier = context.Suppliers.Find(id);
             if (_supplier != null)
                 context.Suppliers.Remove(_supplier);
-
-            context.SaveChanges();
         }
 
         public IEnumerable<Supplier> FindAll()
@@ -49,7 +49,7 @@ namespace DAL_EF.Repositories
 
         public Supplier FindWithId(int id)
         {
-            return context.Suppliers.Find(id);
+            return context.Suppliers.SingleOrDefault(d => d.Id == id);
         }
     }
 }

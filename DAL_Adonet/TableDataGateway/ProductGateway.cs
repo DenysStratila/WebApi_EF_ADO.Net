@@ -29,7 +29,7 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     id = Convert.ToInt32(command.ExecuteScalar());
-                    context.SaveChanges();
+                    //context.SaveChanges();
                 }
             }
             //context.Dispose();
@@ -52,7 +52,7 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     changes = command.ExecuteNonQuery();
-                    context.SaveChanges();
+                   //context.SaveChanges();
                 }
             }
             //context.Dispose();
@@ -72,7 +72,7 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     changes = command.ExecuteNonQuery();
-                    context.SaveChanges();
+                   //context.SaveChanges();
                 }
             }
             //context.Dispose();

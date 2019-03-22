@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
 using BLL.Interfaces;
@@ -22,8 +18,6 @@ namespace WebApi.Controllers
             var config = new MapperConfiguration(con =>
             {
                 con.CreateMap<ProductDTO, ProductModelView>();
-                con.CreateMap<SupplierDTO, SupplierModelView>();
-                con.CreateMap<CategoryProductDTO, CategoryProductModelView>();
             });
 
             mapper = config.CreateMapper();
@@ -52,15 +46,21 @@ namespace WebApi.Controllers
         // POST api/products/id
         public IHttpActionResult PostProduct([FromBody]ProductModelView product)
         {
-            if (ModelState.IsValid || product != null)
+            if (!ModelState.IsValid || product == null)
             {
                 return BadRequest();
             }
 
-            var model = mapper.Map<ProductModelView, ProductDTO>(product);
+            var model = new ProductDTO
+            {
+                ProductName = product.ProductName,
+                SupplierId = product.SupplierId,
+                CategoryId = product.CategoryId
+            };
+
             productService.Create(model);
 
-            return Ok(new { Message = "A product has created" });
+            return Ok(new { Message = $"The new product {product.ProductName} has created" });
         }
 
         // PUT api/products/id
@@ -86,7 +86,7 @@ namespace WebApi.Controllers
             };
             productService.Update(newProd);
 
-            return Ok(new { Message = "A product has updated" });
+            return Ok(new { Message = $"A product {product.ProductName} has updated" });
         }
 
         // DELETE api/products/id
@@ -98,7 +98,7 @@ namespace WebApi.Controllers
             }
             productService.Delete(id);
 
-            return Ok(new { Message = "A product has deleted" });
+            return Ok(new { Message = $"A product with Id={id} has deleted" });
         }
     }
 }

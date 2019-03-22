@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using DAL_Adonet.Interfaces;
 
@@ -11,7 +12,7 @@ namespace DAL_Adonet
 
         public SqlContext(string connectionString)
         {
-            connection = new SqlConnection(connectionString);
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings[connectionString].ConnectionString);
             connection.Open();
             transaction = connection.BeginTransaction();
         }
