@@ -29,10 +29,8 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     id = Convert.ToInt32(command.ExecuteScalar());
-                    //context.SaveChanges();
                 }
             }
-            //context.Dispose();
 
             return id;
         }
@@ -52,10 +50,8 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     changes = command.ExecuteNonQuery();
-                   //context.SaveChanges();
                 }
             }
-            //context.Dispose();
 
             return changes;
         }
@@ -72,10 +68,8 @@ namespace DAL_Adonet.TableDataGateway
 
                     context.CreateCommand(command);
                     changes = command.ExecuteNonQuery();
-                   //context.SaveChanges();
                 }
             }
-            //context.Dispose();
 
             return changes;
         }
@@ -103,9 +97,8 @@ namespace DAL_Adonet.TableDataGateway
                     }
                 }
             }
-            //context.Dispose();
 
-            return list as IEnumerable<Product>;
+            return list;
         }
 
         public Product FindWithId(int id)
@@ -132,7 +125,6 @@ namespace DAL_Adonet.TableDataGateway
                     }
                 }
             }
-            //context.Dispose();
 
             return product;
         }

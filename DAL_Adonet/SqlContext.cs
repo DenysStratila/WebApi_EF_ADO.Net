@@ -43,7 +43,11 @@ namespace DAL_Adonet
                 throw new InvalidOperationException("Transaction has already been commited. Check your transaction handling!");
 
             transaction.Commit();
-            transaction = null;
+
+            if (connection.State == System.Data.ConnectionState.Open)
+                transaction = connection.BeginTransaction();
+            else
+                transaction = null;
         }
     }
 }

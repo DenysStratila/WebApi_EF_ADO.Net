@@ -10,7 +10,7 @@ namespace UI
     {
         static void Main(string[] args)
         {
-            StandardKernel ninject = new StandardKernel(new ServiceModule(ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString));
+            StandardKernel ninject = new StandardKernel(new ServiceModule("DbConnection"));
 
             IProductService product = ninject.Get<IProductService>();
             ICategoryService category = ninject.Get<ICategoryService>();
